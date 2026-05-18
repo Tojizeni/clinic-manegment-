@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/auth/Login";
-import PageShell from "./components/PageShell"; // <-- Placeholder Import
+import PageShell from "./components/PageShell";
 
-// Real Pages Import
+// Real Pages Import (Paths Theek Ki Hain)
 import AdminDashboard from "./pages/auth/admin/AdminDashboard";
 import DoctorDashboard from "./pages/auth/doctor/DoctorDashboard";
+import PatientDashboard from "./pages/auth/patient/PatientDashboard"; // <-- YEH ADD KIYA
 
 // Protected Route Wrapper
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -53,9 +54,11 @@ function AppRoutes() {
       {/* ================= PATIENT ROUTES ================= */}
       <Route path="/patient" element={<ProtectedRoute allowedRoles={["Patient"]}><MainLayout /></ProtectedRoute>}>
         <Route index element={<Navigate to="profile" replace />} />
-        <Route path="profile" element={<PageShell title="My Profile" description="View and update your personal information." />} />
-        <Route path="appointments" element={<PageShell title="My Appointments" description="Track your upcoming and past clinic visits." />} />
-        <Route path="prescriptions" element={<PageShell title="My Prescriptions" description="Download or view your medical prescriptions." />} />
+
+        {/* Patient ke sabhi main links ek hi functional page par jayenge */}
+        <Route path="profile" element={<PatientDashboard />} />
+        <Route path="appointments" element={<PatientDashboard />} />
+        <Route path="prescriptions" element={<PatientDashboard />} />
         <Route path="ai-explanations" element={<PageShell title="AI Explanations" description="Understand your diagnoses and lab reports in simple words." />} />
       </Route>
 
